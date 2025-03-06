@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  retailer: MyString
+  purchaseDate: 2025-03-06
+  purchaseTime: MyString
+  total: 1.5
+
+two:
+  retailer: MyString
+  purchaseDate: 2025-03-06
+  purchaseTime: MyString
+  total: 1.5

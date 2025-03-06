@@ -1,0 +1,235 @@
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-03-06 21:59:36.245134', '2025-03-06 21:59:36.245136') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateReceipts (20250306215915)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "receipts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "retailer" varchar, "purchaseDate" date, "purchaseTime" varchar, "total" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250306215915') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/" for 127.0.0.1 at 2025-03-06 14:14:55 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [POST] "/"):
+  
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:15:13 -0800
+  
+ArgumentError (Before process_action callback :verify_authenticity_token has not been defined):
+  
+app/controllers/receipts_controller.rb:7:in `<class:ReceiptsController>'
+app/controllers/receipts_controller.rb:6:in `<main>'
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:16:14 -0800
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 1.6ms | Allocations: 3699)
+
+
+Started GET "/receipts/7fb1377b-b223-49d9-a31a-5a02701dd310/points" for 127.0.0.1 at 2025-03-06 14:17:51 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"7fb1377b-b223-49d9-a31a-5a02701dd310", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 104)
+
+
+Started GET "/receipts/7fb1377b-b223-49d9-a31a-5a02701dd310/points" for 127.0.0.1 at 2025-03-06 14:19:29 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"7fb1377b-b223-49d9-a31a-5a02701dd310", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 1.2ms | Allocations: 2574)
+
+
+  
+NoMethodError (undefined method `debug' for #<ReceiptsController:0x0000000000ece0>
+
+    debug @@receipts
+    ^^^^^
+Did you mean?  debugger):
+  
+app/controllers/receipts_controller.rb:35:in `get_points'
+Started GET "/receipts/7fb1377b-b223-49d9-a31a-5a02701dd310/points" for 127.0.0.1 at 2025-03-06 14:19:40 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"7fb1377b-b223-49d9-a31a-5a02701dd310", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 1.2ms | Allocations: 219)
+
+
+Started GET "/receipts/7fb1377b-b223-49d9-a31a-5a02701dd310/points" for 127.0.0.1 at 2025-03-06 14:21:58 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"7fb1377b-b223-49d9-a31a-5a02701dd310", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 1.1ms | Allocations: 215)
+
+
+Started GET "/receipts/7fb1377b-b223-49d9-a31a-5a02701dd310/points" for 127.0.0.1 at 2025-03-06 14:21:59 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"7fb1377b-b223-49d9-a31a-5a02701dd310", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 68)
+
+
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:22:09 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ReceiptsController#process_receipt as */*
+Completed 400 Bad Request in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 2613)
+
+
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:22:31 -0800
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 1.9ms | Allocations: 283)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:22:41 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 90)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:22:42 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:05 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 2.2ms | Allocations: 222)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:40 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 1.3ms | Allocations: 214)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:41 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:41 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 70)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:41 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:41 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:42 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:42 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 69)
+
+
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:23:47 -0800
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 200 OK in 3ms (Views: 2.8ms | ActiveRecord: 0.0ms | Allocations: 179)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:49 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 95)
+
+
+Started GET "/receipts/139952af-b6c9-4748-a965-5a0711dc0a0e/points" for 127.0.0.1 at 2025-03-06 14:23:56 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"139952af-b6c9-4748-a965-5a0711dc0a0e", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 404 Not Found in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 95)
+
+
+Started GET "/receipts/9b7c1be8-3c40-4fca-ae39-2753a967ccf3/points" for 127.0.0.1 at 2025-03-06 14:24:21 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65", "items"=>[{"shortDescription"=>"Pepsi - 12-oz", "price"=>"1.25"}, {"shortDescription"=>"Dasani", "price"=>"1.40"}], "id"=>"9b7c1be8-3c40-4fca-ae39-2753a967ccf3", "receipt"=>{"retailer"=>"Walgreens", "purchaseDate"=>"2022-01-02", "purchaseTime"=>"08:13", "total"=>"2.65"}}
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms | Allocations: 91)
+
+
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:25:15 -0800
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"Target", "purchaseDate"=>"2022-01-01", "purchaseTime"=>"13:01", "items"=>[{"shortDescription"=>"Mountain Dew 12PK", "price"=>"6.49"}, {"shortDescription"=>"Emils Cheese Pizza", "price"=>"12.25"}, {"shortDescription"=>"Knorr Creamy Chicken", "price"=>"1.26"}, {"shortDescription"=>"Doritos Nacho Cheese", "price"=>"3.35"}, {"shortDescription"=>"   Klarbrunn 12-PK 12 FL OZ  ", "price"=>"12.00"}], "total"=>"35.35", "receipt"=>{"retailer"=>"Target", "purchaseDate"=>"2022-01-01", "purchaseTime"=>"13:01", "total"=>"35.35"}}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 179)
+
+
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:25:16 -0800
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"Target", "purchaseDate"=>"2022-01-01", "purchaseTime"=>"13:01", "items"=>[{"shortDescription"=>"Mountain Dew 12PK", "price"=>"6.49"}, {"shortDescription"=>"Emils Cheese Pizza", "price"=>"12.25"}, {"shortDescription"=>"Knorr Creamy Chicken", "price"=>"1.26"}, {"shortDescription"=>"Doritos Nacho Cheese", "price"=>"3.35"}, {"shortDescription"=>"   Klarbrunn 12-PK 12 FL OZ  ", "price"=>"12.00"}], "total"=>"35.35", "receipt"=>{"retailer"=>"Target", "purchaseDate"=>"2022-01-01", "purchaseTime"=>"13:01", "total"=>"35.35"}}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 179)
+
+
+Started GET "/receipts/12ce8165-dd3e-4722-babf-da48314551cc/points" for 127.0.0.1 at 2025-03-06 14:25:39 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"id"=>"12ce8165-dd3e-4722-babf-da48314551cc", "receipt"=>{}}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 172)
+
+
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:26:04 -0800
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "items"=>[{"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}], "total"=>"9.00", "receipt"=>{"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "total"=>"9.00"}}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 179)
+
+
+Started GET "/receipts/a2148e2c-9005-40c4-b610-237ebb051e86/points" for 127.0.0.1 at 2025-03-06 14:26:13 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"id"=>"a2148e2c-9005-40c4-b610-237ebb051e86", "receipt"=>{}}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 208)
+
+
+Started GET "/receipts/a2148e2c-9005-40c4-b610-237ebb051e86/points" for 127.0.0.1 at 2025-03-06 14:30:41 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"id"=>"a2148e2c-9005-40c4-b610-237ebb051e86", "receipt"=>{}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 211)
+
+
+Started POST "/receipts/process" for 127.0.0.1 at 2025-03-06 14:31:57 -0800
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "items"=>[{"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}], "total"=>"9.00", "receipt"=>{"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "total"=>"9.00"}}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 1.9ms | Allocations: 331)
+
+
+Started GET "/receipts/3081cb23-3467-47b2-acf9-8011d5f57464/points" for 127.0.0.1 at 2025-03-06 14:32:11 -0800
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"id"=>"3081cb23-3467-47b2-acf9-8011d5f57464", "receipt"=>{}}
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 68)
+
+
+Started GET "/receipts/3081cb23-3467-47b2-acf9-8011d5f57464/points" for 172.20.0.1 at 2025-03-06 22:45:04 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"id"=>"3081cb23-3467-47b2-acf9-8011d5f57464", "receipt"=>{}}
+Completed 404 Not Found in 71ms (Views: 1.0ms | ActiveRecord: 45.4ms | Allocations: 3599)
+
+
+Started POST "/receipts/process" for 172.20.0.1 at 2025-03-06 22:45:11 +0000
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "items"=>[{"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}], "total"=>"9.00", "receipt"=>{"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "total"=>"9.00"}}
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 249)
+
+
+Started GET "/receipts/0108fc5c-936f-4fa7-b254-fc4e74b94907/points" for 172.20.0.1 at 2025-03-06 22:45:22 +0000
+Processing by ReceiptsController#get_points as */*
+  Parameters: {"id"=>"0108fc5c-936f-4fa7-b254-fc4e74b94907", "receipt"=>{}}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 65)
+
+
+Started POST "/receipts/process" for 172.20.0.1 at 2025-03-06 22:50:00 +0000
+Processing by ReceiptsController#process_receipt as */*
+  Parameters: {"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "items"=>[{"shortDescription"=>"Gatorade", "price"=>"2.25"}, {"shortDescription"=>"Gatorade", "price"=>"2.25"}], "total"=>"4.50", "receipt"=>{"retailer"=>"M&M Corner Market", "purchaseDate"=>"2022-03-20", "purchaseTime"=>"14:33", "total"=>"4.50"}}
+Completed 200 OK in 38ms (Views: 12.7ms | ActiveRecord: 0.0ms | Allocations: 169)
+
+
