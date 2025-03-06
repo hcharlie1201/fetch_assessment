@@ -1,24 +1,35 @@
-# README
+run 
+```console
+$ docker ps
+$ docker-compose build
+$ docker-compose up
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+Test the API
 
-* Ruby version
+```
+curl -X POST http://localhost:3000/receipts/process \
+  -H "Content-Type: application/json" \
+  -d '{
+    "retailer": "M&M Corner Market",
+    "purchaseDate": "2022-03-20",
+    "purchaseTime": "14:33",
+    "items": [
+      {
+        "shortDescription": "Gatorade",
+        "price": "2.25"
+      },
+      {
+        "shortDescription": "Gatorade",
+        "price": "2.25"
+      }
+    ],
+    "total": "4.50"
+  }'
+```
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+curl http://localhost:3000/receipts/[id]/points
+```
